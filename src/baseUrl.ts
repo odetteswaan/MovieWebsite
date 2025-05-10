@@ -1,0 +1,1 @@
+export const baseUrl="https://www.omdbapi.com/?apikey=994d3403"
