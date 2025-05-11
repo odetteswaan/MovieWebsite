@@ -2,7 +2,7 @@ import { GlobalContext } from "./context"
 
 
 const Search = () => {
-   const {query,setQuery,isError,isLoading} = GlobalContext()
+   const {query,setQuery,isError} = GlobalContext()
    return (
     <>
      <section className="search-section">

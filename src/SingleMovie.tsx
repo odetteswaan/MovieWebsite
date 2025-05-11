@@ -6,8 +6,6 @@ const SingleMovie = () => {
   const {id}=useParams()
     const[movies,setMovies]=useState<any|null>(null)
     const[isLoading,setIsLoading]=useState(true)
-    const [isError,setIsError]=useState({show:false,msg:''})
-    const[query,setQuery]=useState('titanic')
     useEffect(()=>{
     const timeOut =setTimeout(()=>{
 
@@ -16,17 +14,12 @@ const SingleMovie = () => {
                    console.log(res.data)
                     setMovies(res.data)
                     setIsLoading(false)
-                    setIsError({show:false,msg:""})
-                }
-                else{
-                    setIsError({show:true,msg:res.data.Error})
-                    setIsLoading(true)
                 }
             }).catch()
         },800)
         return ()=>clearTimeout(timeOut)
         
-    },[query])
+    },[id])
 
     if(isLoading){
       return(
