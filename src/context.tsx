@@ -16,24 +16,31 @@ imdbID: string
 }
 
 const AppProvider:React.FC<MyProviderProps>=({children})=>{
-    const[movies,setMovies]=useState<any|null>(null)
+    const[movies,setMovies]=useState<MovieType|null>(null)
     const[isLoading,setIsLoading]=useState(true)
     const [isError,setIsError]=useState({show:false,msg:''})
+    const[query,setQuery]=useState('titanic')
     useEffect(()=>{
-axios.get(baseUrl+'&s=titanic').then(res=>{
-    if(res.data.Response==="True"){
-       
-        setMovies(res.data.Search)
-        setIsLoading(false)
-    }
-    else{
-        setIsError({show:true,msg:'error'})
-    }
-}).catch()
-    },[])
-    console.log(movies)
+    const timeOut =setTimeout(()=>{
+
+            axios.get(baseUrl+`&s=${query}`).then(res=>{
+                if(res.data.Response==="True"){
+                   
+                    setMovies(res.data.Search)
+                    setIsLoading(false)
+                    setIsError({show:false,msg:""})
+                }
+                else{
+                    setIsError({show:true,msg:res.data.Error})
+                    setIsLoading(true)
+                }
+            }).catch()
+        },800)
+        return ()=>clearTimeout(timeOut)
+        
+    },[query])
 return(
-    <AppContext.Provider value={{movies:movies,isLoading:isLoading,isError:isError}}>
+    <AppContext.Provider value={{movies:movies,isLoading:isLoading,isError:isError,query:query,setQuery:setQuery}}>
         {children}
         </AppContext.Provider>
 )

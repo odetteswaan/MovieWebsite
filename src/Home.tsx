@@ -5,8 +5,8 @@ import Search from "./Search"
 const Home = () => {
   return(
     <>
-    <Movies/>
     <Search/>
+    <Movies/>
     </>
   )
 }

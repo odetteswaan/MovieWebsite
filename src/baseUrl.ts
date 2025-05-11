@@ -1,1 +1,1 @@
-export const baseUrl="https://www.omdbapi.com/?apikey=994d3403"
+export const baseUrl=import.meta.env.VITE_API_URL!;
